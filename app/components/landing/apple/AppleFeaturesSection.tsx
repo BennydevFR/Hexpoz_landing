@@ -44,7 +44,7 @@ export default function AppleFeaturesSection() {
       description: 'Interface épurée pour créer vos galeries 3D en quelques clics.',
       size: 'large',
       image: {
-        src: '/editor-6.png',
+        src: '/editor-6.webp',
         width: 900,
         height: 540
       }
@@ -76,7 +76,7 @@ export default function AppleFeaturesSection() {
       description: 'Exprimez votre identité artistique en toute liberté. Notre éditeur de profil vous permet de composer votre espace personnel selon vos envies, reflétant parfaitement votre style et votre créativité.',
       size: 'large-medium',
       image: {
-        src: '/profil.png',
+        src: '/profil.webp',
         width: 1200,
         height: 800
       }

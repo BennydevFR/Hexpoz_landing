@@ -5,8 +5,8 @@ import CarouselGallery from './CarouselGallery';
 
 // Données statiques extraites
 const CAROUSEL_ITEMS = [
-  { title: "L'éditeur de galerie", gradient: "from-purple-500/20 to-blue-500/20" , image: "/editor-5.png"},
-  { title: "Exposition Virtuelle", gradient: "from-blue-500/20 to-purple-500/20" , image: "/gallery.png"},
+  { title: "L'éditeur de galerie", gradient: "from-purple-500/20 to-blue-500/20" , image: "/editor-5.webp"},
+  { title: "Exposition Virtuelle", gradient: "from-blue-500/20 to-purple-500/20" , image: "/gallery.webp"},
   { title: "Carte NFC pour partager d'un geste", gradient: "from-purple-500/20 to-indigo-500/20" , image: "/card.png"},
 ];
 
