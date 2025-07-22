@@ -45,9 +45,9 @@ export default function Home() {
           fourthColor="255, 100, 150"
           fifthColor="255, 180, 80"
           pointerColor="120, 80, 255"
-          size="80%"
+          size="100%"
           blendingValue="hard-light"
-          interactive={false}
+          interactive={true}
           containerClassName="fixed inset-0 -z-10"
         />
       </div>
