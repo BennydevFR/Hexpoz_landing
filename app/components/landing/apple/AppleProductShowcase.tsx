@@ -184,7 +184,7 @@ export default function AppleProductShowcase() {
                 <video
                   ref={videoRef}
                   className="w-full h-full object-cover"
-                  src="/hexpoz.webm"
+                  src="https://ysvbxtkeeelcldaarwmz.supabase.co/storage/v1/object/public/landing//hexpoz.webm"
                   playsInline
                   loop
                   muted={isMuted}
