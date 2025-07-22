@@ -216,9 +216,11 @@ export default function AppleProductShowcase() {
                     />
 
                     <ControlButton
-                      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
-                        e.preventDefault();
-                        e.stopPropagation();
+                      onClick={(e?: React.MouseEvent<Element, MouseEvent>) => {
+                        if (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
                         toggleFullscreen();
                       }}
                       icon={isFullscreen ? Minimize2 : Maximize2}
