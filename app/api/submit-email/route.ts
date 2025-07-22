@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { sendConfirmationEmail } from '../../lib/email-service';
 
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
@@ -64,6 +65,18 @@ export async function POST(request: Request) {
 
     const result = await response.json();
     console.log('Airtable success:', result);
+
+    // Envoi de l'email de confirmation
+    try {
+      const emailResult = await sendConfirmationEmail({ email, interestLevel });
+      if (!emailResult.success) {
+        console.error('Failed to send confirmation email:', emailResult.error);
+        // On continue même si l'email échoue
+      }
+    } catch (emailError) {
+      console.error('Error sending confirmation email:', emailError);
+      // On continue même si l'email échoue
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
