@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.75rem;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
+
+    /* Background Gradient Animation Variables */
+    --animate-first: moveVertical 30s ease infinite;
+    --animate-second: moveInCircle 20s reverse infinite;
+    --animate-third: moveInCircle 40s linear infinite;
+    --animate-fourth: moveHorizontal 40s ease infinite;
+    --animate-fifth: moveInCircle 20s ease infinite;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-zinc-800;
+  }
+  body {
+    @apply bg-[#0a0a0a] text-white;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Optimisation du rendu du texte */
+  p {
+    text-wrap: pretty;
+    text-size-adjust: 100%;
+    font-synthesis: none;
+  }
+}
+
+@layer utilities {
+  .animate-aurora-1 {
+    animation: aurora-1 12s infinite alternate;
+  }
+  .animate-aurora-2 {
+    animation: aurora-2 12s infinite alternate;
+  }
+  .animate-aurora-3 {
+    animation: aurora-3 12s infinite alternate;
+  }
+  .animate-aurora-4 {
+    animation: aurora-4 12s infinite alternate;
+  }
+  
+  .aurora-gradient {
+    @apply bg-gradient-to-r from-[hsl(0,100%,63%)] via-[hsl(270,100%,63%)] via-[hsl(47,98%,50%)] to-[hsl(210,100%,63%)];
+  }
+
+  /* Background Gradient Animation Classes */
+  .animate-first {
+    animation: var(--animate-first);
+  }
+  .animate-second {
+    animation: var(--animate-second);
+  }
+  .animate-third {
+    animation: var(--animate-third);
+  }
+  .animate-fourth {
+    animation: var(--animate-fourth);
+  }
+  .animate-fifth {
+    animation: var(--animate-fifth);
+  }
+}
+
+/* Background Gradient Animation Keyframes */
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(50%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+}
+
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Animations aurora pour les effets de fond */
+@keyframes aurora-1 {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50px, -100px) rotate(180deg);
+  }
+}
+
+@keyframes aurora-2 {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(100px, -50px) rotate(-90deg);
+  }
+}
+
+@keyframes aurora-3 {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(-100px, 50px) rotate(90deg);
+  }
+}
+
+@keyframes aurora-4 {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(50px, 100px) rotate(-180deg);
+  }
+}
+
+/* Scrollbar personnalisée */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Styles pour focus accessibilité */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-[#1d1d1d];
+}
+
+/* Sélection de texte */
+::selection {
+  @apply bg-blue-500/30 text-white;
+}
+
+/* Scroll smooth */
+html {
+  scroll-behavior: smooth;
+}
