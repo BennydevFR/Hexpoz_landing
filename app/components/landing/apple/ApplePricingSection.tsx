@@ -23,32 +23,26 @@ export default function ApplePricingSection() {
       remainingSpots: 59
     },
     {
-      name: 'Professionnel',
-      price: '49',
-      period: 'mois',
-      description: 'Idéal pour les professionnels',
+      name: 'Bientôt disponible',
+      isComingSoon: true,
+      description: 'Offre Professionnelle en cours d\'élaboration',
       features: [
-        'Galeries illimitées',
-        'Stockage 100GB',
-        'Support prioritaire',
-        'Analytics avancées',
-        'Domaine personnalisé'
-      ],
-      popular: true
+        'Une offre sur mesure',
+        'Pour les professionnels',
+        'Avec des fonctionnalités avancées',
+        'Contactez-nous pour en savoir plus'
+      ]
     },
     {
-      name: 'Studio',
-      price: '99',
-      period: 'mois',
-      description: 'Pour les équipes créatives',
+      name: 'Bientôt disponible',
+      isComingSoon: true,
+      description: 'Offre Studio en cours d\'élaboration',
       features: [
-        'Tout du Professionnel',
-        'Stockage 500GB',
-        'Collaboration équipe',
-        'API personnalisée',
-        'Support dédié'
-      ],
-      popular: false
+        'Une offre premium',
+        'Pour les studios créatifs',
+        'Avec des fonctionnalités exclusives',
+        'Contactez-nous pour en savoir plus'
+      ]
     }
   ];
 
@@ -95,7 +89,9 @@ export default function ApplePricingSection() {
               className={`relative bg-zinc-900/30 backdrop-blur-sm border rounded-2xl p-8 ${
                 plan.popular 
                   ? 'border-white/20 ring-1 ring-white/10' 
-                  : 'border-white/5'
+                  : plan.isComingSoon
+                    ? 'border-white/10 bg-gradient-to-br from-zinc-900/50 to-zinc-800/30'
+                    : 'border-white/5'
               }`}
               role="listitem"
               aria-labelledby={`plan-title-${index}`}
@@ -121,43 +117,54 @@ export default function ApplePricingSection() {
                 </h3>
                 <p className="text-zinc-400 font-light mb-6">{plan.description}</p>
                 
-                <div 
-                  className="mb-6"
-                  role="region"
-                  aria-label="Informations de prix"
-                >
-                  {plan.originalPrice && (
-                    <span 
-                      className="text-2xl font-light text-zinc-500 line-through mr-2"
-                      aria-label={`Prix original : ${plan.originalPrice}€ par ${plan.period}`}
-                    >
-                      {plan.originalPrice}€
-                    </span>
-                  )}
-                  <span 
-                    className="text-5xl font-light text-white"
-                    aria-label={`${plan.price}€ par ${plan.period}`}
+                {!plan.isComingSoon && (
+                  <div 
+                    className="mb-6"
+                    role="region"
+                    aria-label="Informations de prix"
                   >
-                    {plan.price}€
-                  </span>
-                  <span className="text-zinc-400 font-light">/{plan.period}</span>
-                  {plan.isBeta && (
-                    <div 
-                      className="mt-2"
-                      role="status"
-                      aria-label="Informations sur la beta"
-                    >
-                      <span className="text-sm text-emerald-400 font-medium">Prix spécial beta fermée</span>
-                      <p className="text-xs text-zinc-400 mt-1">Ce tarif restera le vôtre même après le lancement officiel</p>
-                      <p 
-                        className="text-xs text-amber-400/90 font-medium mt-2"
-                        aria-live="polite"
+                    {plan.originalPrice && (
+                      <span 
+                        className="text-2xl font-light text-zinc-500 line-through mr-2"
+                        aria-label={`Prix original : ${plan.originalPrice}€ par ${plan.period}`}
                       >
-                        Plus que {plan.remainingSpots} places disponibles
-                      </p>
+                        {plan.originalPrice}€
+                      </span>
+                    )}
+                    <span 
+                      className="text-5xl font-light text-white"
+                      aria-label={`${plan.price}€ par ${plan.period}`}
+                    >
+                      {plan.price}€
+                    </span>
+                    <span className="text-zinc-400 font-light">/{plan.period}</span>
+                    {plan.isBeta && (
+                      <div 
+                        className="mt-2"
+                        role="status"
+                        aria-label="Informations sur la beta"
+                      >
+                        <span className="text-sm text-emerald-400 font-medium">Prix spécial beta fermée</span>
+                        <p className="text-xs text-zinc-400 mt-1">Ce tarif restera le vôtre même après le lancement officiel</p>
+                        <p 
+                          className="text-xs text-amber-400/90 font-medium mt-2"
+                          aria-live="polite"
+                        >
+                          Plus que {plan.remainingSpots} places disponibles
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {plan.isComingSoon && (
+                  <div className="mb-6">
+                    <div className="relative w-16 h-16 mx-auto mb-4">
+                      <div className="absolute inset-0 bg-white/10 rounded-full animate-pulse"></div>
+                      <div className="absolute inset-2 bg-gradient-to-br from-white/20 to-white/5 rounded-full"></div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               <ul 
@@ -172,10 +179,14 @@ export default function ApplePricingSection() {
                     role="listitem"
                   >
                     <div 
-                      className="w-2 h-2 bg-white rounded-full flex-shrink-0"
+                      className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                        plan.isComingSoon ? 'bg-white/50' : 'bg-white'
+                      }`}
                       aria-hidden="true"
                     ></div>
-                    <span className="text-zinc-300 font-light">{feature}</span>
+                    <span className={`font-light ${
+                      plan.isComingSoon ? 'text-zinc-400' : 'text-zinc-300'
+                    }`}>{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -189,6 +200,16 @@ export default function ApplePricingSection() {
                 >
                   Rejoindre la beta
                 </a>
+              )}
+
+              {plan.isComingSoon && (
+                <button 
+                  className="block w-full py-3 rounded-xl font-medium transition-all duration-300 bg-white/5 text-white/70 hover:bg-white/10 text-center cursor-not-allowed"
+                  disabled
+                  aria-label="Cette offre sera bientôt disponible"
+                >
+                  Bientôt disponible
+                </button>
               )}
             </motion.div>
           ))}
