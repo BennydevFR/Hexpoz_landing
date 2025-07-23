@@ -1,28 +1,45 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface FormData {
   email: string;
   interestLevel: 'curious' | 'excited' | 'needToKnowMore' | '';
+  captchaToken?: string;
 }
 
 export default function AppleCTASection() {
   const [formData, setFormData] = useState<FormData>({
     email: '',
-    interestLevel: ''
+    interestLevel: '',
+    captchaToken: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showInterestSelect, setShowInterestSelect] = useState(false);
+  const [csrfToken, setCsrfToken] = useState<string>('');
+
+  // Récupérer le token CSRF au chargement du composant
+  useEffect(() => {
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    if (token) {
+      setCsrfToken(token);
+    }
+  }, []);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.email && !showInterestSelect) {
       setShowInterestSelect(true);
     } else if (formData.interestLevel) {
+      if (!formData.captchaToken) {
+        setError('Veuillez valider le captcha');
+        return;
+      }
+
       setError('');
       setIsLoading(true);
 
@@ -31,6 +48,7 @@ export default function AppleCTASection() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
           },
           body: JSON.stringify(formData),
         });
@@ -42,7 +60,7 @@ export default function AppleCTASection() {
         }
 
         setIsSubmitted(true);
-        setFormData({ email: '', interestLevel: '' });
+        setFormData({ email: '', interestLevel: '', captchaToken: '' });
         setShowInterestSelect(false);
         setTimeout(() => setIsSubmitted(false), 3000);
       } catch (err) {
@@ -50,6 +68,13 @@ export default function AppleCTASection() {
       } finally {
         setIsLoading(false);
       }
+    }
+  };
+
+  const handleCaptchaVerify = (token: string | null) => {
+    if (token) {
+      setFormData(prev => ({ ...prev, captchaToken: token }));
+      setError('');
     }
   };
 
@@ -235,6 +260,15 @@ export default function AppleCTASection() {
                   </div>
                 </motion.div>
               )}
+
+              <div className="mt-4 flex justify-center">
+                <ReCAPTCHA
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                  onChange={handleCaptchaVerify}
+                  hl="fr"
+                  theme="dark"
+                />
+              </div>
             </form>
             
             {error && (
