@@ -4,16 +4,32 @@ import { sendConfirmationEmail } from '../../lib/email-service';
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 const AIRTABLE_TABLE_ID = 'tbljWwXpvtHtLiZEN';
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
+async function verifyRecaptcha(token: string) {
+  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+  });
+
+  const data = await response.json();
+  return data.success;
+}
 
 export async function POST(request: Request) {
   try {
-    // Debug des variables d'environnement
-    console.log('Checking environment variables:');
-    console.log('Base ID exists:', !!AIRTABLE_BASE_ID);
-    console.log('API Key exists:', !!AIRTABLE_API_KEY);
+    const { email, interestLevel, captchaToken } = await request.json();
 
-    const { email, interestLevel } = await request.json();
-    console.log('Received data:', { email, interestLevel });
+    // Validation du captcha
+    if (!captchaToken || !await verifyRecaptcha(captchaToken)) {
+      return NextResponse.json(
+        { error: 'Validation du captcha échouée' },
+        { status: 400 }
+      );
+    }
 
     // Validation simple
     if (!email || !email.includes('@')) {
@@ -32,7 +48,6 @@ export async function POST(request: Request) {
     }
 
     const airtableUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`;
-    console.log('Airtable URL:', airtableUrl);
 
     // Création de l'enregistrement pour Airtable
     const record = {
@@ -42,8 +57,6 @@ export async function POST(request: Request) {
         InterestLevel: interestLevel || 'unspecified'
       }
     };
-
-    console.log('Sending record to Airtable:', record);
 
     // Envoi à Airtable
     const response = await fetch(airtableUrl, {
@@ -64,18 +77,15 @@ export async function POST(request: Request) {
     }
 
     const result = await response.json();
-    console.log('Airtable success:', result);
 
     // Envoi de l'email de confirmation
     try {
       const emailResult = await sendConfirmationEmail({ email, interestLevel });
       if (!emailResult.success) {
         console.error('Failed to send confirmation email:', emailResult.error);
-        // On continue même si l'email échoue
       }
     } catch (emailError) {
       console.error('Error sending confirmation email:', emailError);
-      // On continue même si l'email échoue
     }
 
     return NextResponse.json({ success: true });
