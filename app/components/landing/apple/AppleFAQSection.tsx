@@ -31,14 +31,18 @@ export default function AppleFAQSection() {
       question: 'Puis-je personnaliser l\'apparence ?',
       answer: 'Totalement. Contrôlez l\'éclairage, les textures, les couleurs, et même la disposition spatiale pour créer l\'ambiance parfaite pour vos œuvres.'
     },
-        {
+    {
       question: 'Le projet est-il en phase finale ?',
       answer: 'HEXPOZ est actuellement fonctionnel pour la création et le partage de galeries, mais nous sommes loin d\'avoir épuisé nos idées ! De nombreuses fonctionnalités sont en cours de développement. Notre vision est d\'évoluer avec nos utilisateurs : vos retours et suggestions sont précieux pour façonner l\'avenir d\'HEXPOZ et répondre au mieux à vos besoins. Si le projet vous plaît, nous continuerons avec enthousiasme à l\'enrichir et l\'améliorer.'
     }
-    ];
+  ];
 
   return (
-    <section className="py-40 lg:py-48 xl:py-56 px-4 sm:px-6 lg:px-8 xl:px-12 bg-[#111111] m-2 rounded-lg">
+    <section 
+      className="py-40 lg:py-48 xl:py-56 px-4 sm:px-6 lg:px-8 xl:px-12 bg-[#111111] m-2 rounded-lg"
+      aria-label="Questions fréquentes"
+      role="region"
+    >
       <div className="max-w-4xl xl:max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -46,8 +50,12 @@ export default function AppleFAQSection() {
           transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
           viewport={{ once: true }}
           className="text-center mb-12 lg:mb-16 xl:mb-20"
+          role="banner"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white mb-6 lg:mb-8">
+          <h2 
+            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white mb-6 lg:mb-8"
+            id="faq-title"
+          >
             Questions
             <br />
             <span className="text-zinc-400">fréquentes</span>
@@ -57,7 +65,11 @@ export default function AppleFAQSection() {
           </p>
         </motion.div>
 
-        <div className="space-y-3 lg:space-y-4">
+        <div 
+          className="space-y-3 lg:space-y-4"
+          role="list"
+          aria-label="Liste des questions fréquentes"
+        >
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
@@ -66,12 +78,18 @@ export default function AppleFAQSection() {
               transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.1 }}
               viewport={{ once: true }}
               className="group relative bg-gradient-to-br from-zinc-900/50 to-zinc-900/30 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/20"
+              role="listitem"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-8 py-7 text-left flex items-center justify-between group-hover:bg-white/[0.02] transition-all duration-500"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-question-${index}`}
               >
-                <h3 className="text-lg font-light text-white/90 pr-4 group-hover:text-white transition-colors duration-300">{faq.question}</h3>
+                <h3 className="text-lg font-light text-white/90 pr-4 group-hover:text-white transition-colors duration-300">
+                  {faq.question}
+                </h3>
                 <motion.div
                   animate={{ 
                     rotate: openIndex === index ? 45 : 0,
@@ -82,6 +100,7 @@ export default function AppleFAQSection() {
                     ease: [0.23, 1, 0.32, 1]
                   }}
                   className="text-zinc-400 text-2xl font-light flex-shrink-0 group-hover:text-white/80 transition-colors duration-300"
+                  aria-hidden="true"
                 >
                   +
                 </motion.div>
@@ -97,6 +116,9 @@ export default function AppleFAQSection() {
                       duration: 0.5,
                       ease: [0.23, 1, 0.32, 1]
                     }}
+                    id={`faq-answer-${index}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${index}`}
                   >
                     <div className="px-8 pb-7 border-t border-white/[0.03]">
                       <motion.p 

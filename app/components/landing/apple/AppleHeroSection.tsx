@@ -6,9 +6,16 @@ import Image from 'next/image';
 
 export default function AppleHeroSection() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 relative overflow-hidden pt-8 bg-[#111111] m-2 rounded-lg">
+    <section 
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 relative overflow-hidden pt-8 bg-[#111111] m-2 rounded-lg"
+      aria-label="Hero section"
+      role="region"
+    >
       {/* Background gradient subtil */}
-      <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 via-transparent to-zinc-800/30"></div>
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 via-transparent to-zinc-800/30"
+        aria-hidden="true"
+      ></div>
       
       <div className="relative z-10 text-center max-w-5xl xl:max-w-6xl mx-auto -mt-8">
         <motion.div
@@ -17,14 +24,28 @@ export default function AppleHeroSection() {
           transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
         >
           {/* Badge BETA */}
-          <div className="inline-flex items-center px-3 py-1 bg-white/10 rounded-full text-xs text-zinc-300 mb-6 lg:mb-8 backdrop-blur-sm border border-white/10">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-            Version BETA disponible
+          <div 
+            className="inline-flex items-center px-3 py-1 bg-white/10 rounded-full text-xs text-zinc-300 mb-6 lg:mb-8 backdrop-blur-sm border border-white/10"
+            role="status"
+            aria-live="polite"
+          >
+            <span 
+              className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"
+              aria-hidden="true"
+            ></span>
+            <span>Version BETA disponible</span>
           </div>
           
           {/* Grille des lettres 3x2 */}
-          <div className="mb-6 lg:mb-8">
-            <div className="grid grid-cols-3 gap-0.5 lg:gap-1 xl:gap-1.5 max-w-48 lg:max-w-56 xl:max-w-64 mx-auto">
+          <div 
+            className="mb-6 lg:mb-8"
+            role="heading"
+            aria-level={1}
+          >
+            <div 
+              className="grid grid-cols-3 gap-0.5 lg:gap-1 xl:gap-1.5 max-w-48 lg:max-w-56 xl:max-w-64 mx-auto"
+              aria-label="HEXPOZ"
+            >
               {/* Première ligne: H E X */}
               <div className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white tracking-tight">H</div>
               <div className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white tracking-tight">E</div>
@@ -35,7 +56,7 @@ export default function AppleHeroSection() {
               <div className="flex items-center justify-center">
                 <Image
                   src="/logo2.svg"
-                  alt="HEXPOZ Logo"
+                  alt="O - HEXPOZ Logo"
                   width={50}
                   height={50}
                   className="w-8 h-8 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
@@ -46,12 +67,19 @@ export default function AppleHeroSection() {
           </div>
           
           {/* Sous-titre */}
-          <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-zinc-400 mb-3 lg:mb-4">
+          <p 
+            className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-zinc-400 mb-3 lg:mb-4"
+            role="heading"
+            aria-level={2}
+          >
             L'art en 3D. Réinventé.
           </p>
           
           {/* Description - Optimisée pour le LCP */}
-          <div className="mx-auto max-w-[65ch] mb-8 lg:mb-12">
+          <div 
+            className="mx-auto max-w-[65ch] mb-8 lg:mb-12"
+            aria-label="Description principale"
+          >
             <p style={{
               fontSize: '16px',
               lineHeight: '1.5',
@@ -65,12 +93,18 @@ export default function AppleHeroSection() {
           </div>
           
           {/* Boutons CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div 
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            role="group"
+            aria-label="Actions principales"
+          >
             <motion.a
               href="#urgency"
               className="px-8 py-3 bg-white text-black rounded-lg font-medium hover:bg-zinc-200 transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              role="button"
+              aria-label="Découvrir HEXPOZ - En savoir plus sur notre plateforme"
             >
               Découvrir HEXPOZ
             </motion.a>
@@ -79,6 +113,8 @@ export default function AppleHeroSection() {
               className="px-8 py-3 text-white hover:text-zinc-300 transition-colors duration-300 font-light rounded-lg border border-white/20 hover:border-white/30"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              role="button"
+              aria-label="Voir en action - Découvrir des exemples de galeries"
             >
               Voir en action
             </motion.a>

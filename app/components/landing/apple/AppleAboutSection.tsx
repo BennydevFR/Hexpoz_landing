@@ -5,10 +5,20 @@ import { motion } from 'framer-motion';
 
 export default function AppleAboutSection() {
   return (
-    <section className="py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-[#111111] m-2 rounded-2xl relative overflow-hidden">
+    <section 
+      className="py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-[#111111] m-2 rounded-2xl relative overflow-hidden"
+      aria-label="À propos d'HEXPOZ"
+      role="region"
+    >
       {/* Background elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:64px_64px]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.02] via-transparent to-blue-500/[0.02]" />
+      <div 
+        className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:64px_64px]"
+        aria-hidden="true"
+      />
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.02] via-transparent to-blue-500/[0.02]"
+        aria-hidden="true"
+      />
       
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
@@ -18,8 +28,12 @@ export default function AppleAboutSection() {
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           viewport={{ once: true }}
           className="text-center mb-24"
+          role="banner"
         >
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-6 tracking-tight">
+          <h2 
+            className="text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-6 tracking-tight"
+            id="about-title"
+          >
             L'histoire derrière
             <span className="block mt-3 bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">
               HEXPOZ
@@ -28,7 +42,11 @@ export default function AppleAboutSection() {
         </motion.div>
 
         {/* Story Section */}
-        <div className="grid lg:grid-cols-2 gap-20">
+        <div 
+          className="grid lg:grid-cols-2 gap-20"
+          role="main"
+          aria-labelledby="about-title"
+        >
           {/* Left Column - Main Story */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -36,10 +54,19 @@ export default function AppleAboutSection() {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true }}
             className="space-y-16"
+            role="region"
+            aria-label="Débuts de l'histoire"
           >
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-purple-500/30 to-transparent" />
+              <div 
+                className="flex items-center gap-4 mb-8"
+                role="heading"
+                aria-level={3}
+              >
+                <div 
+                  className="h-px flex-1 bg-gradient-to-r from-purple-500/30 to-transparent"
+                  aria-hidden="true"
+                />
                 <span className="text-zinc-500 font-light text-sm tracking-wider uppercase">Le Début</span>
               </div>
               <p className="text-zinc-300 font-light leading-relaxed">
@@ -50,8 +77,15 @@ export default function AppleAboutSection() {
             </div>
 
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-blue-500/30 to-transparent" />
+              <div 
+                className="flex items-center gap-4 mb-8"
+                role="heading"
+                aria-level={3}
+              >
+                <div 
+                  className="h-px flex-1 bg-gradient-to-r from-blue-500/30 to-transparent"
+                  aria-hidden="true"
+                />
                 <span className="text-zinc-500 font-light text-sm tracking-wider uppercase">Le Défi</span>
               </div>
               <p className="text-zinc-300 font-light leading-relaxed">
@@ -69,10 +103,19 @@ export default function AppleAboutSection() {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true }}
             className="space-y-16 lg:pt-24"
+            role="region"
+            aria-label="Suite de l'histoire"
           >
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent" />
+              <div 
+                className="flex items-center gap-4 mb-8"
+                role="heading"
+                aria-level={3}
+              >
+                <div 
+                  className="h-px flex-1 bg-gradient-to-r from-emerald-500/30 to-transparent"
+                  aria-hidden="true"
+                />
                 <span className="text-zinc-500 font-light text-sm tracking-wider uppercase">L'Obsession</span>
               </div>
               <p className="text-zinc-300 font-light leading-relaxed">
@@ -83,8 +126,15 @@ export default function AppleAboutSection() {
             </div>
 
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-rose-500/30 to-transparent" />
+              <div 
+                className="flex items-center gap-4 mb-8"
+                role="heading"
+                aria-level={3}
+              >
+                <div 
+                  className="h-px flex-1 bg-gradient-to-r from-rose-500/30 to-transparent"
+                  aria-hidden="true"
+                />
                 <span className="text-zinc-500 font-light text-sm tracking-wider uppercase">La Renaissance</span>
               </div>
               <p className="text-zinc-300 font-light leading-relaxed">
@@ -103,24 +153,52 @@ export default function AppleAboutSection() {
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           viewport={{ once: true }}
           className="mt-32 relative"
+          role="complementary"
+          aria-label="Statut de la version Beta"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/[0.05] via-transparent to-blue-500/[0.05] rounded-xl" />
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-purple-500/[0.05] via-transparent to-blue-500/[0.05] rounded-xl"
+            aria-hidden="true"
+          />
           <div className="relative border-t border-b border-white/[0.05] py-16">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
               <div className="lg:pl-8">
-                <div className="text-sm text-zinc-500 font-light tracking-wider uppercase mb-3">Version Beta</div>
+                <div 
+                  className="text-sm text-zinc-500 font-light tracking-wider uppercase mb-3"
+                  role="heading"
+                  aria-level={3}
+                >
+                  Version Beta
+                </div>
                 <h3 className="text-2xl text-white font-light">
                   Rejoignez les premiers créateurs
                 </h3>
               </div>
-              <div className="flex items-center gap-16 lg:pr-8">
-                <div>
-                  <div className="text-4xl font-light text-white mb-2">41</div>
+              <div 
+                className="flex items-center gap-16 lg:pr-8"
+                role="list"
+                aria-label="Statistiques des places disponibles"
+              >
+                <div role="listitem">
+                  <div 
+                    className="text-4xl font-light text-white mb-2"
+                    aria-label="41 places réservées"
+                  >
+                    41
+                  </div>
                   <div className="text-sm text-zinc-500 font-light">Places Réservées</div>
                 </div>
-                <div className="h-16 w-px bg-white/[0.05]" />
-                <div>
-                  <div className="text-4xl font-light text-white mb-2">59</div>
+                <div 
+                  className="h-16 w-px bg-white/[0.05]"
+                  aria-hidden="true"
+                />
+                <div role="listitem">
+                  <div 
+                    className="text-4xl font-light text-white mb-2"
+                    aria-label="59 places restantes"
+                  >
+                    59
+                  </div>
                   <div className="text-sm text-zinc-500 font-light">Places Restantes</div>
                 </div>
               </div>
