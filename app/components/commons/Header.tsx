@@ -16,10 +16,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 const NAVIGATION_ITEMS = [
-  { href: "/", icon: HomeIcon, label: "Accueil" },
-  { href: "/galeries", icon: SquareLibrary, label: "Galeries" },
-  { href: "/roadmap", icon: GitCommitVertical, label: "Roadmap" },
-  { href: "/contact", icon: MailIcon, label: "Contact" },
+  { label: "H" },
+  { label: "E" },
+  { label: "X" },
+  { label: "P" },
+  { label: "O" },
+  { label: "Z" },
 ];
 
 const VISITOR_MENU_ITEMS = [
@@ -89,7 +91,8 @@ export function Header() {
                 "h-10 md:h-16",
                 "px-1 sm:px-2 md:px-4",
                 "border border-zinc-800/80 pointer-events-auto shadow-2xl",
-                "gap-0.5 sm:gap-1 md:gap-2 max-w-[90vw] md:max-w-fit mx-auto",
+                "gap-0.5 sm:gap-1 md:gap-2",
+                "min-w-[20rem] sm:min-w-[22rem] md:min-w-[25rem] hover:min-w-[22rem] sm:hover:min-w-[24rem] md:hover:min-w-[27rem]",
                 isScrolled 
                   ? "border-t-zinc-700/70 border-t rounded-lg sm:rounded-xl md:rounded-2xl" 
                   : "border-t-transparent rounded-t-none rounded-b-lg sm:rounded-b-xl md:rounded-b-2xl",
@@ -102,15 +105,7 @@ export function Header() {
                   className="relative z-60"
                   aria-label="Retour à l'accueil"
                 >
-                  <div className="relative w-6 h-6 sm:w-6 sm:h-6 md:w-11 md:h-11 rounded-md sm:rounded-lg md:rounded-xl overflow-hidden bg-gradient-to-br from-blue-500/40 via-purple-500/40 to-pink-500/40 backdrop-blur-sm border border-zinc-600/60 flex items-center justify-center group hover:scale-110 transition-all duration-300 ease-in-out shadow-lg hover:shadow-blue-500/25">
-                    <div 
-                      className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 animate-pulse group-hover:animate-none"
-                      aria-hidden="true"
-                    ></div>
-                    <div 
-                      className="absolute inset-0 bg-gradient-to-br from-blue-300/15 via-purple-300/15 to-pink-300/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      aria-hidden="true"
-                    ></div>
+                  <div className="relative w-6 h-6 sm:w-6 sm:h-6 md:w-11 md:h-11 rounded-md sm:rounded-lg md:rounded-xl overflow-hidden bg-gradient-to-r from-zinc-900/90 via-zinc-800/90 to-zinc-900/90 backdrop-blur-sm border border-zinc-700/50 flex items-center justify-center group hover:scale-110 transition-all duration-300 ease-in-out shadow-lg">
                     <Image 
                       src="/logo2.svg" 
                       alt="Logo HEXPOZ" 
@@ -133,41 +128,40 @@ export function Header() {
 
               {/* Navigation Items */}
               <nav 
-                className="flex items-center"
+                className="flex items-center justify-center flex-1 h-full"
                 aria-label="Menu principal"
               >
-                {NAVIGATION_ITEMS.map((item, index) => (
-                  <DockIcon key={item.label} className="mx-0.5">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={item.href}
-                          className={cn(
-                            "h-6 w-6 sm:h-6 sm:w-6 md:h-10 md:w-10 rounded-md sm:rounded-lg md:rounded-xl flex items-center justify-center group relative",
-                            "text-zinc-400 hover:text-white",
-                            "bg-zinc-800/20 hover:bg-gradient-to-br hover:from-blue-500/30 hover:via-purple-500/30 hover:to-pink-500/30",
-                            "border border-zinc-700/30 hover:border-zinc-600/70",
-                            "backdrop-blur-sm transition-all duration-300 ease-in-out",
-                            "hover:shadow-lg hover:shadow-blue-500/25",
-                            "hover:-translate-y-0.5"
-                          )}
-                          aria-label={item.label}
-                        >
-                          <item.icon 
-                            className="h-3.5 w-3.5 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 group-hover:scale-110 transition-transform duration-300"
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent 
-                        className="bg-zinc-900/95 border-zinc-800 text-zinc-200 font-medium"
-                        role="tooltip"
-                      >
-                        <p>{item.label}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </DockIcon>
-                ))}
+                <DockIcon>
+                  <div
+                    className={cn(
+                      "flex items-center justify-between group h-6 md:h-8",
+                      "transition-all duration-300 ease-in-out",
+                      "hover:-translate-y-0.5",
+                      "bg-gradient-to-r from-zinc-900/90 via-zinc-800/90 to-zinc-900/90",
+                      "border border-zinc-700/50",
+                      "backdrop-blur-md",
+                      "px-3 py-0.5",
+                      "rounded-lg",
+                      "w-[15rem] sm:w-[17rem] md:w-[20rem]"
+                    )}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className={cn(
+                        "text-[0.65rem] sm:text-xs font-medium tracking-wide whitespace-nowrap",
+                        "bg-gradient-to-b from-white via-zinc-100 to-zinc-300 text-transparent bg-clip-text"
+                      )}>
+                        Bêta prévue fin 2025
+                      </span>
+                    </div>
+                    <div className="hidden sm:flex items-center whitespace-nowrap">
+                      <span className="text-[0.65rem] text-zinc-500 mx-1.5">•</span>
+                      <span className="text-[0.6rem] text-zinc-400">
+                        En développement
+                      </span>
+                    </div>
+                  </div>
+                </DockIcon>
               </nav>
 
               {/* Séparateur */}
@@ -183,36 +177,30 @@ export function Header() {
               <DockIcon className="ml-0.5">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button
-                      onClick={() => {
-                        const waitlistSection = document.getElementById('waitlist');
-                        if (waitlistSection) {
-                          waitlistSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                      }}
+                    <Link
+                      href="/contact"
                       className={cn(
                         "w-6 h-6 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-md sm:rounded-lg md:rounded-xl flex items-center justify-center group relative",
                         "text-white font-medium",
-                        "bg-gradient-to-r from-blue-500/90 via-purple-500/90 to-pink-500/90",
-                        "hover:from-blue-500 hover:via-purple-500 hover:to-pink-500",
-                        "border border-blue-400/60 hover:border-blue-400/90",
+                        "bg-gradient-to-r from-zinc-900/90 via-zinc-800/90 to-zinc-900/90",
+                        "border border-zinc-700/50",
                         "backdrop-blur-sm transition-all duration-300 ease-in-out",
-                        "hover:shadow-lg hover:shadow-blue-500/30",
+                        "hover:shadow-lg",
                         "hover:-translate-y-0.5 shadow-md"
                       )}
-                      aria-label="Rejoindre la liste d'attente"
+                      aria-label="Nous contacter"
                     >
                       <MailIcon 
                         className="h-3.5 w-3.5 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 group-hover:scale-110 transition-transform duration-300"
                         aria-hidden="true"
                       />
-                    </button>
+                    </Link>
                   </TooltipTrigger>
                   <TooltipContent 
                     className="bg-zinc-900/95 border-zinc-800 text-zinc-200 font-medium"
                     role="tooltip"
                   >
-                    <p>Rejoindre la liste d'attente</p>
+                    <p>Nous contacter</p>
                   </TooltipContent>
                 </Tooltip>
               </DockIcon>

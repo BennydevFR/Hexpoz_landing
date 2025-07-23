@@ -1,10 +1,17 @@
 import { NextResponse } from 'next/server';
 import { sendConfirmationEmail } from '../../lib/email-service';
+import { rateLimit } from '../../lib/rate-limit';
 
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 const AIRTABLE_TABLE_ID = 'tbljWwXpvtHtLiZEN';
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
+const limiter = rateLimit({
+  interval: 60000, // 1 minute en millisecondes
+  maxRequests: 3,  // 3 requêtes maximum par minute
+  uniqueTokenPerInterval: 500 // nombre maximum d'utilisateurs par intervalle
+});
 
 async function verifyRecaptcha(token: string) {
   const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
@@ -21,6 +28,16 @@ async function verifyRecaptcha(token: string) {
 
 export async function POST(request: Request) {
   try {
+    // Vérification du rate limit
+    try {
+      await limiter.check();
+    } catch {
+      return NextResponse.json(
+        { error: 'Trop de tentatives. Veuillez réessayer dans une minute.' },
+        { status: 429 }
+      );
+    }
+
     const { email, interestLevel, captchaToken } = await request.json();
 
     // Validation du captcha
